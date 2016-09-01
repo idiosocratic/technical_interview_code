@@ -3,9 +3,25 @@
 """Question 1: Given two strings s and t, determine whether some anagram of t is a substring of s. For example: if s = “udacity” and t = “ad”, then the function returns True. Your function definition should look like: “question1(s, t)”, and return a boolean True or False."""
 
 def question1(s, t):
- 
-    pass
-
+    if len(t) > len(s):
+        print "Substring not possible!"
+        return False
+    char_list = []
+    for char in s:
+        char_list.append(char)
+    for char1 in t:
+        found = False
+        pop_index = None
+        for index, char2 in enumerate(char_list):
+            if char1 == char2:
+                found = True
+                pop_index = index
+        if found == False:
+            print "Missing letter! Anagram not possible!"
+            return False
+        popped = char_list.pop(pop_index)
+    print "Anagram possible!"
+    return True
 
 
 """Question 2: Given a string a, find the longest palindromic substring contained in a. Your function definition should look like "question2(a)", and return a string."""
