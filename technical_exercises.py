@@ -27,8 +27,28 @@ def question1(s, t):
 """Question 2: Given a string a, find the longest palindromic substring contained in a. Your function definition should look like "question2(a)", and return a string."""
 
 def question2(a):
+    
+    base_len = len(a)
+    
+    search_len = base_len # initialize
+    
+    while search_len > 1:
 
-    pass
+        iter = base_len - search_len
+        
+        for i in range(iter + 1):
+
+            search_substring = a[i:search_len+i]
+
+            if search_substring == search_substring[::-1]:
+
+                return search_substring
+
+        search_len -= 1
+
+    if search_len == 1:
+
+        return "Only trivial palindrome exists, pick any character."
 
 
 
