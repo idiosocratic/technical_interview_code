@@ -55,8 +55,36 @@ def question2(a):
 """Question 3: Given an undirected graph G, find the minimum spanning tree within G. A minimum spanning tree connects all vertices in a graph with the smallest possible total weight of edges. Your function should take in and return an adjacency list structured like this: {'A':[('B',2)],'B':[('A',2),('C',5)],'C':[('B',5)]}. Vertices are represented as unique strings. The function definition should be "question3(G)" """
 
 def question3(G):
+    
+    min_list = []
+    
+    temp_min_vertex_pair = []
+    
+    temp_min_weight = 100
+    
+    while len(min_list) < len(G - 2):
+    
+        for vertex in G:
 
-    pass
+            neighbor_min = minimum(vertex, key = lambda x: x[1])
+
+            edge_weight = neighbor_min[1]
+
+            if edge_weight < temp_min_weight:
+                
+                vertex_pair = sorted([ vertex, neighbor_min[0] ])
+                
+                if not vertex_pair in min_list:
+
+                    temp_min_weight = edge_weight
+    
+                    temp_min_vertex_pair = vertex_pair
+
+        if not temp_min_vertex_pair in min_list:
+
+            min_list.append(temp_min_vertex_pair)
+
+
 
 
 
