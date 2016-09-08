@@ -81,10 +81,30 @@ def question3(G):
                     temp_min_vertex_pair = vertex_pair
 
         if not temp_min_vertex_pair in min_list:
+            
+            # check for cycles
+            appended = False
+            
+            if len(min_list) < 3:
 
-            min_list.append(temp_min_vertex_pair)
+                min_list.append(temp_min_vertex_pair)
+                appended = True
+            
+            if not appended:
 
+                vertices_list = []
 
+                vertices_list.append(temp_min_vertex_pair[0])
+                vertices_list.append(temp_min_vertex_pair[1])
+
+                for pair in min_list:
+
+                    vertices_list.append(pair[0])
+                    vertices_list.append(pair[1])
+
+                    if len(set(vertices_list)) > len(vertices_list)/2:
+
+                        min_list.append(temp_min_vertex_pair)
 
 
 
