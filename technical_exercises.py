@@ -56,55 +56,69 @@ def question2(a):
 
 def question3(G):
     
-    min_list = []
+    # reformatting our graph will allow for easier data manipulation
+    reformated_graph = []
     
-    temp_min_vertex_pair = []
+    for vertex_key in G:
     
-    temp_min_weight = 100
+        for neighbor in vertex_key:
     
-    while len(min_list) < len(G - 2):
-    
-        for vertex in G:
-
-            neighbor_min = minimum(vertex, key = lambda x: x[1])
-
-            edge_weight = neighbor_min[1]
-
-            if edge_weight < temp_min_weight:
+            vertex_pair = (sorted([ vertex_key, neighbor[0] ]), neighbor[1])
+            
+            vertex_pair_present = False
+                           
+            for entry in reformated_graph:
+                           
+                if entry[0] == vertex_pair[0]:
                 
-                vertex_pair = sorted([ vertex, neighbor_min[0] ])
-                
-                if not vertex_pair in min_list:
+                    vertex_pair_present = True
 
-                    temp_min_weight = edge_weight
+            if not vertex_pair_present:
+
+                reformated_graph.append(vertex_pair)
     
-                    temp_min_vertex_pair = vertex_pair
-
-        if not temp_min_vertex_pair in min_list:
+    
+    min_spanning_tree = []
+    
+    while len(min_spanning_tree) < (len(G) - 2) :
+    
+        min_index, temp_min_vertex_pair = min(enumerate(reformated_graph), key = lambda x: x[1][1])
             
-            # check for cycles
-            appended = False
-            
-            if len(min_list) < 3:
+        # check for cycles
+        vertices_list = []
 
-                min_list.append(temp_min_vertex_pair)
-                appended = True
-            
-            if not appended:
+        vertices_list.append(temp_min_vertex_pair[0][0])
+        vertices_list.append(temp_min_vertex_pair[0][1])
 
-                vertices_list = []
+        for edge in min_spanning_tree:
 
-                vertices_list.append(temp_min_vertex_pair[0])
-                vertices_list.append(temp_min_vertex_pair[1])
+            vertices_list.append(edge[0][0])
+            vertices_list.append(edge[0][1])
 
-                for pair in min_list:
+        if len(set(vertices_list)) > len(vertices_list)/2:
 
-                    vertices_list.append(pair[0])
-                    vertices_list.append(pair[1])
+            min_spanning_tree.append(temp_min_vertex_pair)
 
-                    if len(set(vertices_list)) > len(vertices_list)/2:
+        reformated_graph.pop(min_index)
 
-                        min_list.append(temp_min_vertex_pair)
+    # need to reformat for return output
+
+    min_spanning_tree_dict = {}
+
+    for entry in min_spanning_tree:
+
+        if not entry[0][0] in min_spanning_tree_dict:
+
+            min_spanning_tree_dict[entry[0][0]] = []
+
+        if not entry[0][1] in min_spanning_tree_dict:
+    
+            min_spanning_tree_dict[entry[0][1]] = []
+
+        min_spanning_tree_dict[entry[0][0]].append((entry[0][1],entry[1]))
+        min_spanning_tree_dict[entry[0][1]].append((entry[0][0],entry[1]))
+
+    return min_spanning_tree_dict
 
 
 
