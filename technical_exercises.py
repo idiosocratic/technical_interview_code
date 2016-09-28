@@ -1,6 +1,8 @@
 # technical interview exercises
 
-"""Question 1: Given two strings s and t, determine whether some anagram of t is a substring of s. For example: if s = “udacity” and t = “ad”, then the function returns True. Your function definition should look like: “question1(s, t)”, and return a boolean True or False."""
+"""Question 1: Given two strings s and t, determine whether some anagram of t is a substring of s. For example: if
+    s = "udacity" and t = "ad", then the function returns True. Your function definition should look like: "
+    question1(s, t)", and return a boolean True or False."""
 
 def question1(s, t):
     if len(t) > len(s):
@@ -126,15 +128,102 @@ def question3(G):
 
 def question4(T, r, n1, n2):
 
-    pass
+    ancestors = [n1,n2,]
+    n1_most_recent_ancestor = n1
+    n2_most_recent_ancestor = n2
+
+    least_common_ancestor_found = False
+
+    while not least_common_ancestor_found:
+    
+        for index, node in enumerate(T):
+        
+            if not n1_most_recent_ancestor == r:
+            
+                if node[n1_most_recent_ancestor] == 1:
+                
+                    n1_most_recent_ancestor = index
+                
+                    if index in ancestors:
+                    
+                    #print index
+                    
+                        least_common_ancestor_found = True
+                    
+                        return index
+                
+                    ancestors.append(index)
+        
+            if not n2_most_recent_ancestor == r:
+            
+                if node[n2_most_recent_ancestor] == 1:
+                
+                    n2_most_recent_ancestor = index
+                
+                    if index in ancestors:
+                    
+                    #print index
+                    
+                        least_common_ancestor_found = True
+                    
+                        return index
+                
+                    ancestors.append(index)
 
 
 
 """Question 5: Find the element in a singly linked list that's m elements from the end. For example, if a linked list has 5 elements, the 3rd element from the end is the 3rd element. The function definition should look like "question5(ll, m)", where ll is the first node of a linked list and m is the "mth number from the end". You should copy/paste the Node class below to use as a representation of a node in the linked list. Return the value of the node at that position."""
 
-def question5(ll, m):
+class Node(object):
+    def __init__(self, data):
+    self.data = data
+    self.next = None
 
-    pass
+def question5(ll, m):
+    
+    node_count = 0
+
+    end_found = False
+
+    current_node = ll
+
+    while not end_found:
+
+        node_count += 1
+
+        current_node = current_node.next
+
+        if current_node.next == None:
+
+        end_found = True
+
+    depth = node_count - m
+
+    current_node2 = ll
+
+    for num in range(depth):
+
+        current_node2 = current_node2.next
+
+    return current_node2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
